@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.conexiondebases.MainMenuController" spacing="10" alignment="CENTER">
+    <children>
+        <Button text="Reporte A" fx:id="reporteAButton"/>
+        <Button text="Reporte B" fx:id="reporteBButton"/>
+        <Button text="Reporte C" fx:id="reporteCButton"/>
+        <Button text="Reporte D" fx:id="reporteDButton"/>
+    </children>
+</VBox>

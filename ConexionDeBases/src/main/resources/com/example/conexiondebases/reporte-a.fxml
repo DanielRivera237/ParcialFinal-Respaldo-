@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.conexiondebases.ReporteAController" spacing="10" alignment="CENTER">
+    <children>
+        <Label text="ID Cliente"/>
+        <TextField fx:id="idClienteField"/>
+        <Label text="Fecha Inicio"/>
+        <TextField fx:id="fechaInicioField"/>
+        <Label text="Fecha Fin"/>
+        <TextField fx:id="fechaFinField"/>
+        <Button text="Generar Reporte" fx:id="generarReporteButton"/>
+    </children>
+</VBox>
