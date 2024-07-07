@@ -24,6 +24,7 @@ public class MainMenuController { //00104923 declaración de la clase MainMenuCo
             Stage stage = (Stage) administrador.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("opciones-administrador.fxml"));
             stage.setScene(new Scene(root));
+            stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

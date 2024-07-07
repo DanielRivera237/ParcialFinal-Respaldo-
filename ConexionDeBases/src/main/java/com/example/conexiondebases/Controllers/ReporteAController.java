@@ -41,6 +41,7 @@ public class ReporteAController {
             Stage stage = (Stage) regresarButton.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/conexiondebases/main-menu.fxml"));
             stage.setScene(new Scene(root));
+            stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -87,6 +87,7 @@ public class AdminOptionsController {
     private void cargarStageFinal(Parent root, Stage stage, String fxmlFile) throws IOException { //00104923 inicialización método finalShow()
         root = FXMLLoader.load(getClass().getResource(fxmlFile)); //00104923 cargar FXML y asignar a root
         stage.setScene(new Scene(root)); //00104923 establecer nueva escena en el stage
+        stage.centerOnScreen();
         stage.show(); //00104923 mostrar stage
     } //00104923 fin método finalShow
 }

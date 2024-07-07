@@ -36,6 +36,7 @@ public class ReporteDController { //00104923 declaración de la clase ReporteDCo
             Stage stage = (Stage) regresarButton.getScene().getWindow(); //00104923 obtener la ventana actual del botón regresar
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/conexiondebases/main-menu.fxml")); //00104923 cargar FXML y asignar a root
             stage.setScene(new Scene(root)); //00104923 establecer nueva escena en el stage
+            stage.centerOnScreen();
             stage.show(); //00104923 mostrar stage
         } catch (IOException e) { //00104923 captura de excepción IOException
             e.printStackTrace(); //00104923 imprimir traza de la excepción
