@@ -85,7 +85,7 @@ public class HelloController {
 
     @FXML
     private void initialize() {
-        insertClientButton.setOnAction(e -> insertarCliente());
+      /*  insertClientButton.setOnAction(e -> insertarCliente());
         showClientsButton.setOnAction(e -> mostrarClientes());
         updateClientButton.setOnAction(e -> actualizarCliente());
         deleteClientButton.setOnAction(e -> eliminarCliente());
@@ -107,7 +107,7 @@ public class HelloController {
         leftJoinButton.setOnAction(e -> mostrarLeftJoin());
         rightJoinButton.setOnAction(e -> mostrarRightJoin());
 
-        closeButton.setOnAction(e -> cerrarConexion());
+        closeButton.setOnAction(e -> cerrarConexion());*/
     }
 
     private void insertarCliente() {
