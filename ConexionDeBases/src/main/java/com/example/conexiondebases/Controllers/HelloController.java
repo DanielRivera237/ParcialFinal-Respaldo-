@@ -1,5 +1,6 @@
-package com.example.conexiondebases;
+package com.example.conexiondebases.Controllers;
 
+import com.example.conexiondebases.Conexion;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 

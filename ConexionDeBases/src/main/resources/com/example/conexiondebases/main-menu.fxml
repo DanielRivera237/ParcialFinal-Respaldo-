@@ -12,10 +12,10 @@
    <children>
       <VBox alignment="CENTER" layoutX="128.0" layoutY="184.0" prefHeight="209.0" prefWidth="238.0" spacing="10">
           <children>
-              <Button fx:id="reporteAButton" prefHeight="31.0" prefWidth="252.0" text="Listar compras por cliente" />
-              <Button fx:id="reporteBButton" prefHeight="31.0" prefWidth="250.0" text="Total gastado por cliente" />
-              <Button fx:id="reporteCButton" prefHeight="31.0" prefWidth="245.0" text="Listar tarjetas por cliente" />
-              <Button fx:id="reporteDButton" prefHeight="31.0" prefWidth="254.0" text="Clientes por facilitador tarjeta" />
+              <Button fx:id="reporteAButton" onMouseClicked="#showReporteA" prefHeight="31.0" prefWidth="252.0" text="Listar compras por cliente" />
+              <Button fx:id="reporteBButton" onMouseClicked="#showReporteB" prefHeight="31.0" prefWidth="250.0" text="Total gastado por cliente" />
+              <Button fx:id="reporteCButton" onMouseClicked="#showReporteC" prefHeight="31.0" prefWidth="245.0" text="Listar tarjetas por cliente" />
+              <Button fx:id="reporteDButton" onMouseClicked="#showReporteD" prefHeight="31.0" prefWidth="254.0" text="Clientes por facilitador tarjeta" />
           </children>
       </VBox>
       <Text layoutX="86.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BANCO CENTRAL DE NLOGONIA">

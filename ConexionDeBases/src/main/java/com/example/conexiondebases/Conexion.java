@@ -22,6 +22,10 @@ public class Conexion {
         this.port = port;
     }
 
+    public Connection getConnection() { //00104923
+        return connection;
+    }
+
     public boolean connect() {
         try {
             String url = "jdbc:mysql://" + IP + ":" + port + "/" + dataBase + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";

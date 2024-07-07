@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="788.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conexiondebases.ReporteAController">
+<Pane prefHeight="788.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conexiondebases.Controllers.ReporteAController">
    <children>
       <Text layoutX="272.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BANCO CENTRAL DE NLOGONIA">
          <font>
@@ -28,16 +29,19 @@
         <Label layoutX="147.0" layoutY="255.0" text="ID Cliente: " />
         <Label layoutX="147.0" layoutY="204.0" text="Fecha inicio: " />
         <Label layoutX="450.0" layoutY="203.0" text="Fecha fin: " />
-        <TextField fx:id="fechaInicioField" layoutX="238.0" layoutY="198.0" />
-        <TextField fx:id="fechaFinField" layoutX="526.0" layoutY="198.0" />
         <Button fx:id="generarReporteButton" layoutX="365.0" layoutY="320.0" text="Generar Reporte" />
       <Separator layoutX="2.0" layoutY="363.0" prefHeight="8.0" prefWidth="862.0" />
       <TableView layoutX="39.0" layoutY="400.0" prefHeight="285.0" prefWidth="785.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="75.0" text="ID" />
+          <TableColumn prefWidth="218.0" text="nombre" />
+            <TableColumn prefWidth="209.0" text="apellidos" />
+            <TableColumn prefWidth="150.0" text="ID transacción" />
+            <TableColumn prefWidth="132.0" text="Monto" />
         </columns>
       </TableView>
-      <Button fx:id="regresarButton" layoutX="385.0" layoutY="716.0" text="Regresar" />
+      <Button fx:id="regresarButton" layoutX="385.0" layoutY="716.0" onMouseClicked="#regresarButton" text="Regresar" />
+      <DatePicker fx:id="fechaInicioField" layoutX="232.0" layoutY="199.0" prefHeight="31.0" prefWidth="154.0" />
+      <DatePicker fx:id="fechaFinField" layoutX="517.0" layoutY="199.0" prefHeight="31.0" prefWidth="154.0" />
    </children>
 </Pane>

@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="826.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conexiondebases.ReporteBController">
+<Pane prefHeight="826.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conexiondebases.Controllers.ReporteBController">
    <children>
       <Text layoutX="289.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BANCO CENTRAL DE NLOGONIA">
          <font>
@@ -38,6 +38,6 @@
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <Button fx:id="regresarButton" layoutX="394.0" layoutY="770.0" text="Regresar" />
+      <Button fx:id="regresarButton" onMouseClicked="#regresarButton" layoutX="394.0" layoutY="770.0" text="Regresar" />
    </children>
 </Pane>

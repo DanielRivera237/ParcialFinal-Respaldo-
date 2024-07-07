@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.conexiondebases.HelloController" stylesheets="@Estilado.css">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.conexiondebases.Controllers.HelloController" stylesheets="@Estilado.css">
     <children>
         <VBox spacing="10" alignment="center" AnchorPane.topAnchor="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <Label text="Banco Central de Nlogonia (BCN)" styleClass="label-title" />

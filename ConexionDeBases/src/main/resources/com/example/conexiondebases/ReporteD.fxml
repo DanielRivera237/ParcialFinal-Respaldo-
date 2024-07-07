@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<Pane prefHeight="740.0" prefWidth="879.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conexiondebases.ReporteDController">
+<Pane prefHeight="740.0" prefWidth="879.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conexiondebases.Controllers.ReporteDController">
    <children>
         <Label layoutX="304.0" layoutY="200.0" text="Facilitador: " />
         <TextField fx:id="facilitadorField" layoutX="384.0" layoutY="195.0" />
@@ -35,6 +35,6 @@
             <TableColumn prefWidth="75.0" text="C2" />
          </columns>
       </TableView>
-      <Button fx:id="regresarButton" layoutX="393.0" layoutY="656.0" text="Regresar" />
+      <Button fx:id="regresarButton" onMouseClicked="#regresarButton" layoutX="393.0" layoutY="656.0" text="Regresar" />
    </children>
 </Pane>
