@@ -31,31 +31,31 @@ public class AdminOptionsController {
 
     public void setConexion(Conexion conexion) { //00104923 método setConexion
         this.conexion = conexion; //00104923 asignación de la variable conexion
-    } //00104923 fin método setConexion
+    }
 
     public void setPrimaryStage(Stage primaryStage) { //00104923 método setPrimaryStage
         this.primaryStage = primaryStage; //00104923 asignación de la variable primaryStage
-    } //00104923 fin método setPrimaryStage
+    }
 
     @FXML
     public void showReporteA() throws IOException { //00104923 inicialización metodo mostrar ventana reporte A
         mostrarVentana("/com/example/conexiondebases/ReporteA.fxml", "Reporte A", 1); //00104923 inserto los parametros que necesita el método showWindow()
-    } //00104923 fin método showReporteA
+    }
 
     @FXML
     private void showReporteB() throws IOException { //00104923 inicialización metodo mostrar ventana reporte B
         mostrarVentana("/com/example/conexiondebases/ReporteB.fxml", "Reporte B", 2); //00104923 inserto los parametros que necesita el método showWindow()
-    } //00104923 fin método showReporteB
+    }
 
     @FXML
     private void showReporteC() throws IOException { //00104923 inicialización metodo mostrar ventana reporte C
         mostrarVentana( "/com/example/conexiondebases/ReporteC.fxml","Reporte C", 3); //00104923 inserto los parametros que necesita el método showWindow()
-    } //00104923 fin método showReporteC
+    }
 
     @FXML
     private void showReporteD() throws IOException { //00104923 inicialización metodo mostrar ventana reporte D
         mostrarVentana("/com/example/conexiondebases/ReporteD.fxml", "Reporte D", 4); //00104923 inserto los parametros que necesita el método showWindow()
-    } //00104923 fin método showReporteD
+    }
 
     private void mostrarVentana(String fxmlFile, String title, int type) throws IOException { //00104923 inicialización metodo showWindow()
         Stage stage = null; //00104923 variable tipo Stage
@@ -77,17 +77,17 @@ public class AdminOptionsController {
                 stage = (Stage) reporteDButton.getScene().getWindow(); //00104923 asignar Stage para caso 4
                 cargarStageFinal(root, stage, fxmlFile); //00104923 llamar método finalShow para caso 4
                 break; //00104923 romper caso 4
-        } //00104923 fin switch
+        }
         // Cerrar la ventana del menú principal
         if (primaryStage != null) { //00104923 condición para cerrar primaryStage
             primaryStage.close(); //00104923 cerrar primaryStage
-        } //00104923 fin if
-    } //00104923 fin método showWindow
+        }
+    }
 
     private void cargarStageFinal(Parent root, Stage stage, String fxmlFile) throws IOException { //00104923 inicialización método finalShow()
         root = FXMLLoader.load(getClass().getResource(fxmlFile)); //00104923 cargar FXML y asignar a root
         stage.setScene(new Scene(root)); //00104923 establecer nueva escena en el stage
         stage.centerOnScreen();
         stage.show(); //00104923 mostrar stage
-    } //00104923 fin método finalShow
+    }
 }

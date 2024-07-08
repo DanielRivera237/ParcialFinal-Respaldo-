@@ -14,7 +14,9 @@ public class Conexion {
     private String IP;
     private String port;
 
-    public Conexion(String usuario, String clave, String dataBase, String IP, String port) {
+    private static Conexion instancia;
+
+    private Conexion(String usuario, String clave, String dataBase, String IP, String port) {
         this.usuario = usuario;
         this.clave = clave;
         this.dataBase = dataBase;
@@ -22,7 +24,14 @@ public class Conexion {
         this.port = port;
     }
 
-    public Connection getConnection() { //00104923
+    public static Conexion getInstancia(String usuario, String clave, String dataBase, String IP, String port) {
+        if (instancia == null) {
+            instancia = new Conexion(usuario, clave, dataBase, IP, port);
+        }
+        return instancia;
+    }
+
+    public Connection getConnection() {
         return connection;
     }
 
@@ -44,7 +53,7 @@ public class Conexion {
         return connection != null;
     }
 
-    public void createTable(String tableName) {
+ /*   public void createTable(String tableName) {
         String query;
         switch (tableName) {
             case "Clientes":
@@ -216,7 +225,7 @@ public class Conexion {
             if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(null, "Registro con ID " + id + " eliminado con éxito.");
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró ningún registro con ID " + id + ".");
+                JOptionPane.showMessageDialog(null, "No se encontró ningún registro con ID " + id +.");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + e.getMessage());
@@ -316,7 +325,7 @@ public class Conexion {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al actualizar la transacción: " + e.getMessage());
         }
-    }
+    }*/
 
     public void closeConnection() {
         try {

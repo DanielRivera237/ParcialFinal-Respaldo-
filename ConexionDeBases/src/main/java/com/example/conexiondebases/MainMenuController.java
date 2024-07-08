@@ -31,6 +31,19 @@ public class MainMenuController { //00104923 declaración de la clase MainMenuCo
         }
     }
 
+    @FXML
+    private void clienteOpciones(){
+        try {
+            Stage stage = (Stage) cliente.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("ingreso-datos-cliente.fxml"));
+            stage.setScene(new Scene(root));
+            stage.centerOnScreen();
+            stage.show();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
 
     public void setConexion(Conexion conexion) {
         this.conexion = conexion;
