@@ -12,12 +12,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<<<<<<< HEAD
 
 <Pane prefHeight="740.0" prefWidth="879.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conexiondebases.Controllers.ReporteDController">
    <children>
         <Label layoutX="304.0" layoutY="200.0" text="Facilitador: " />
         <TextField fx:id="facilitadorField" layoutX="384.0" layoutY="195.0" />
         <Button fx:id="generarReporteButton" layoutX="375.0" layoutY="260.0" text="Generar Reporte" />
+=======
+<Pane prefHeight="740.0" prefWidth="879.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conexiondebases.Controllers.ReporteDController">
+   <children>
+      <Label layoutX="304.0" layoutY="200.0" text="Facilitador: " />
+      <TextField fx:id="facilitadorField" layoutX="384.0" layoutY="195.0" />
+      <Button fx:id="generarReporteButton" layoutX="375.0" layoutY="260.0" text="Generar Reporte" />
+>>>>>>> Daniel_ReporteD
       <Separator layoutX="9.0" layoutY="315.0" prefHeight="8.0" prefWidth="862.0" />
       <Text layoutX="279.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BANCO CENTRAL DE NLOGONIA">
          <font>
@@ -29,10 +37,18 @@
             <Image url="@../../../images/logo.png" />
          </image>
       </ImageView>
+<<<<<<< HEAD
       <TableView layoutX="47.0" layoutY="340.0" prefHeight="285.0" prefWidth="785.0">
          <columns>
             <TableColumn prefWidth="75.0" text="C1" />
             <TableColumn prefWidth="75.0" text="C2" />
+=======
+      <TableView fx:id="tableView" layoutX="47.0" layoutY="340.0" prefHeight="285.0" prefWidth="785.0">
+         <columns>
+            <TableColumn fx:id="clienteColumn" prefWidth="150.0" text="Cliente" />
+            <TableColumn fx:id="comprasColumn" prefWidth="150.0" text="Cantidad de Compras" />
+            <TableColumn fx:id="totalColumn" prefWidth="150.0" text="Total Gastado" />
+>>>>>>> Daniel_ReporteD
          </columns>
       </TableView>
       <Button fx:id="regresarButton" onMouseClicked="#regresarButton" layoutX="393.0" layoutY="656.0" text="Regresar" />
