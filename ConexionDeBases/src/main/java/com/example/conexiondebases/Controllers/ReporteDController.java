@@ -38,14 +38,18 @@ public class ReporteDController { //00048722 declaración de la clase ReporteDCo
 
     @FXML //00048722 anotación FXML para el método initialize
     public void initialize() { //00048722 método initialize
-        conexion = new Conexion("usuario", "clave", "dataBase", "IP", "port"); //00048722 creación de una nueva instancia de Conexion
-        conexion.connect(); //00048722 conexión a la base de datos
-
         generarReporteButton.setOnAction(e -> generarReporte()); //00048722 asignación del evento al botón generarReporteButton
 
         clienteColumn.setCellValueFactory(new PropertyValueFactory<>("cliente")); //00048722 asignación del valor de la celda para clienteColumn
         comprasColumn.setCellValueFactory(new PropertyValueFactory<>("cantidadCompras")); //00048722 asignación del valor de la celda para comprasColumn
         totalColumn.setCellValueFactory(new PropertyValueFactory<>("totalGastado")); //00048722 asignación del valor de la celda para totalColumn
+    }
+
+    public void setConexion(Conexion conexion) { //00048722 método setConexion
+        this.conexion = conexion; //00048722 asignación de la conexión
+        if (!this.conexion.connectionStablished()) { //00048722 verificación si la conexión no está establecida
+            this.conexion.connect(); //00048722 establecimiento de la conexión
+        }
     }
 
     private void generarReporte() { //00048722 método generarReporte
@@ -93,7 +97,6 @@ public class ReporteDController { //00048722 declaración de la clase ReporteDCo
     }
 }
 
-//Posible solucion a errorres en clase AdminOptionsController (Solo por si acaso)
 class ReporteD { //00048722 declaración de la clase ReporteD
     private String cliente; //00048722 declaración de la variable cliente
     private int cantidadCompras; //00048722 declaración de la variable cantidadCompras

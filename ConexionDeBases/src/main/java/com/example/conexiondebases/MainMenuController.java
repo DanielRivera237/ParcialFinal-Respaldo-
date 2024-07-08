@@ -1,7 +1,6 @@
-package com.example.conexiondebases; //00104923 declaración del paquete
+package com.example.conexiondebases;
 
-
-/*import com.sun.tools.javac.Main;*/
+import com.example.conexiondebases.Controllers.AdminOptionsController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,18 +10,24 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainMenuController { //00104923 declaración de la clase MainMenuController
+public class MainMenuController {
     private Conexion conexion;
+
     @FXML
     private Button cliente;
     @FXML
     private Button administrador;
 
     @FXML
-    private void administradorOpciones(){
+    private void administradorOpciones() {
         try {
             Stage stage = (Stage) administrador.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("opciones-administrador.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/conexiondebases/opciones-administrador.fxml"));
+            Parent root = loader.load();
+
+            AdminOptionsController adminController = loader.getController();
+            adminController.setConexion(conexion); // Pasar la conexión
+
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
             stage.show();
@@ -31,8 +36,7 @@ public class MainMenuController { //00104923 declaración de la clase MainMenuCo
         }
     }
 
-
     public void setConexion(Conexion conexion) {
         this.conexion = conexion;
     }
-} //00104923 fin clase MainMenuController
+}

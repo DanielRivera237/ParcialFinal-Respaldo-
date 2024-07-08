@@ -57,27 +57,25 @@ public class AdminOptionsController {
         mostrarVentana("/com/example/conexiondebases/ReporteD.fxml", "Reporte D", 4); //00104923 inserto los parametros que necesita el método showWindow()
     } //00104923 fin método showReporteD
 
-    private void mostrarVentana(String fxmlFile, String title, int type) throws IOException { //00104923 inicialización metodo showWindow()
+    private void mostrarVentana(String fxmlFile, String title, int type) throws IOException { //00104923 inicialización método showWindow()
         Stage stage = null; //00104923 variable tipo Stage
         Parent root = null; //00104923 variable tipo Parent
-        switch (type) { //00104923 condición a evaluar del switch
-            case 1: //00104923 caso 1
-                stage = (Stage) reporteAButton.getScene().getWindow(); //00104923 asignar Stage para caso 1
-                cargarStageFinal(root, stage, fxmlFile); //00104923 llamar método finalShow para caso 1
-                break; //00104923 romper caso 1
-            case 2: //00104923 caso 2
-                stage = (Stage) reporteBButton.getScene().getWindow(); //00104923 asignar Stage para caso 2
-                cargarStageFinal(root, stage, fxmlFile); //00104923 llamar método finalShow para caso 2
-                break; //00104923 romper caso 2
-            case 3: //00104923 caso 3
-                stage = (Stage) reporteCButton.getScene().getWindow(); //00104923 asignar Stage para caso 3
-                cargarStageFinal(root, stage, fxmlFile); //00104923 llamar método finalShow para caso 3
-                break; //00104923 romper caso 3
-            case 4: //00104923 caso 4
-                stage = (Stage) reporteDButton.getScene().getWindow(); //00104923 asignar Stage para caso 4
-                cargarStageFinal(root, stage, fxmlFile); //00104923 llamar método finalShow para caso 4
-                break; //00104923 romper caso 4
-        } //00104923 fin switch
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+        root = loader.load();
+        stage = (Stage) ((type == 1) ? reporteAButton.getScene().getWindow() :
+                (type == 2) ? reporteBButton.getScene().getWindow() :
+                        (type == 3) ? reporteCButton.getScene().getWindow() :
+                                reporteDButton.getScene().getWindow());
+        if (type == 4) {
+            ReporteDController controller = loader.getController();
+            if (controller != null) {
+                controller.setConexion(conexion);
+            }
+        }
+        stage.setScene(new Scene(root));
+        stage.centerOnScreen();
+        stage.show();
+
         // Cerrar la ventana del menú principal
         if (primaryStage != null) { //00104923 condición para cerrar primaryStage
             primaryStage.close(); //00104923 cerrar primaryStage
