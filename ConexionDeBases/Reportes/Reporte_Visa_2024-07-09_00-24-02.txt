@@ -1,0 +1,5 @@
+Reporte para facilitador: Visa
+
+Cliente                        Cantidad de Compras  Total Gastado       
+------------------------------------------------------------
+Sebastián Andrés Gómez Vargas  1                    25.50               
