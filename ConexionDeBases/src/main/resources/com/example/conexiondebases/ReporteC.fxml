@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<Pane prefHeight="756.0" prefWidth="864.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conexiondebases.Controllers.ReporteCController">
+<Pane prefHeight="756.0" prefWidth="864.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conexiondebases.Controllers.ReporteCController">
    <children>
       <Text layoutX="271.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BANCO CENTRAL DE NLOGONIA">
          <font>
@@ -29,12 +21,13 @@
          </image>
       </ImageView>
       <Separator layoutX="1.0" layoutY="323.0" prefHeight="8.0" prefWidth="862.0" />
-      <TableView layoutX="40.0" layoutY="341.0" prefHeight="344.0" prefWidth="785.0">
+      <TableView fx:id="outPut" layoutX="40.0" layoutY="341.0" prefHeight="344.0" prefWidth="785.0">
          <columns>
-            <TableColumn prefWidth="75.0" text="C1" />
-            <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn fx:id="ColumnID" prefWidth="125.0" text="ID" />
+            <TableColumn fx:id="ColumCredito" prefWidth="295.0" text="Credito" />
+            <TableColumn fx:id="ColumnDebito" prefWidth="355.0" text="Debito" />
          </columns>
       </TableView>
-      <Button fx:id="regresarButton" onMouseClicked="#regresarButton" layoutX="393.0" layoutY="701.0" text="Regresar" />
+      <Button fx:id="regresarButton" layoutX="393.0" layoutY="701.0" onMouseClicked="#regresarButton" text="Regresar" />
    </children>
 </Pane>

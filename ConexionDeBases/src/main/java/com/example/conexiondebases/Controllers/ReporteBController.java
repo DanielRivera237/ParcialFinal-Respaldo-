@@ -1,15 +1,25 @@
 package com.example.conexiondebases.Controllers; //00104923 declaración del paquete
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML; //00104923 importación de la clase FXML
 import javafx.fxml.FXMLLoader; //00104923 importación de la clase FXMLLoader
 import javafx.scene.Parent; //00104923 importación de la clase Parent
 import javafx.scene.Scene; //00104923 importación de la clase Scene
-import javafx.scene.control.Button; //00104923 importación de la clase Button
-import javafx.scene.control.TextField; //00104923 importación de la clase TextField
-import javafx.scene.control.TextArea; //00104923 importación de la clase TextArea
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage; //00104923 importación de la clase Stage
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException; //00104923 importación de la clase IOException
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ReporteBController { //00104923 declaración de la clase ReporteBController
     @FXML
@@ -21,18 +31,92 @@ public class ReporteBController { //00104923 declaración de la clase ReporteBCo
     @FXML
     private Button generarReporteButton; //00104923 variable botón generar reporte
     @FXML
-    private TextArea outputArea; //00104923 variable área de texto de salida
+    private TableView<ColumnasB> contArea;
     @FXML
     private Button regresarButton; //00104923 variable botón regresar
+    @FXML
+    private TableColumn<ColumnasB, String> columnIdCliente;
+    @FXML
+    private TableColumn<ColumnasB, Double> columnGastos;
 
     @FXML
     public void initialize() { //00104923 inicialización del método initialize()
         generarReporteButton.setOnAction(e -> generarReporte()); //00104923 establecer acción del botón generar reporte
+
+        columnIdCliente.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
+        columnGastos.setCellValueFactory(new PropertyValueFactory<>("montoMes"));
     } //00104923 fin método initialize
 
-    private void generarReporte() { //00104923 inicialización del método generarReporte
-        outputArea.appendText("Generando Reporte B para cliente ID: " + idClienteField.getText() + " Mes: " + mesField.getText() + " Año: " + anioField.getText() + "\n"); //00104923 generar mensaje de reporte
-    } //00104923 fin método generarReporte
+    private void generarReporte() {
+        String idCliente = idClienteField.getText();
+        String mes = mesField.getText();
+        String anio = anioField.getText();
+
+        if (idCliente == null || idCliente.isEmpty() || anio.isEmpty() || mes.isEmpty()) {
+            // Mostrar alerta de error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR AL INGRESAR DATOS");
+            alert.setHeaderText(null);
+            alert.setContentText("Por favor, complete todos los campos");
+
+            alert.showAndWait();
+            return;
+        }
+
+        ObservableList<ColumnasB> reporteB = FXCollections.observableArrayList();
+
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LABO","labo13","walle");
+            String query = "SELECT " +
+                    "c.id_cliente, " +
+                    "SUM(t.total_gastado) AS GASTOS_MES " +
+                    "FROM Transaccion t " +
+                    "JOIN Tarjeta ta ON t.numero_tarjeta = ta.numero " +
+                    "JOIN Cliente c ON ta.id_cliente = c.id_cliente " +
+                    "WHERE c.id_cliente = ? " +
+                    "AND EXTRACT(MONTH FROM t.fecha_compra) = ? " +
+                    "AND EXTRACT(YEAR FROM t.fecha_compra) = ? " +
+                    "GROUP BY c.id_cliente";
+
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, idCliente);
+            pstmt.setString(2, mes);
+            pstmt.setString(3, anio);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            // Obtener la fecha y hora actual para nombrar el archivo
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+            String timestamp = now.format(formatter);
+
+            // Crear un archivo TXT para guardar los resultados
+            File archivo = new File("C:\\Users\\Camilo\\Desktop\\ParcialFinal-Respaldo-\\ConexionDeBases\\src\\main\\java\\com\\example\\conexiondebases\\Controllers\\Reportes\\Reporte_B"+timestamp + ".txt");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(archivo));
+
+            while (rs.next()) {
+                ColumnasB vistaColumna = new ColumnasB(
+                        rs.getString("id_cliente"),
+                        rs.getDouble("GASTOS_MES")
+                );
+                reporteB.add(vistaColumna);
+
+                // Escribir los resultados en el archivo TXT
+                writer.write("ID Cliente: " + rs.getString("id_cliente") + ", Gastos del Mes: " + rs.getDouble("GASTOS_MES"));
+                writer.newLine();
+            }
+
+            writer.close(); // Cerrar el BufferedWriter
+            rs.close();  // Cerrar el ResultSet
+            pstmt.close();  // Cerrar el PreparedStatement
+            conn.close();  // Cerrar la conexión
+
+            contArea.setItems(reporteB);
+
+        } catch (Exception e) {
+            System.out.println("Fallo al conectar la Base de Datos: " + e.getMessage());
+        }
+    }
 
     @FXML
     public void regresarButton() { //00104923 inicialización del método regresarButton

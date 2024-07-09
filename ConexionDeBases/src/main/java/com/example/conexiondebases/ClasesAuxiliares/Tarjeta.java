@@ -70,5 +70,12 @@ public class Tarjeta {
                 ", idCliente='" + idCliente + '\'' +
                 '}';
     }
+
+    public String getNumeroCensurado() {
+        if (numero.length() > 4) {
+            return "XXXX XXXX XXXX " + numero.substring(numero.length() - 4);
+        }
+        return numero;
+    }
 }
 
