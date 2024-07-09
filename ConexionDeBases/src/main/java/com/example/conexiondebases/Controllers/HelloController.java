@@ -111,7 +111,7 @@ public class HelloController {
         closeButton.setOnAction(e -> cerrarConexion());*/
     }
 
-    private void insertarCliente() {
+   /* private void insertarCliente() {
         int id = Integer.parseInt(idField.getText());
         String nombreCompleto = nameField.getText();
         String direccion = direccionField.getText();
@@ -246,5 +246,5 @@ public class HelloController {
     private void cerrarConexion() {
         conexion.closeConnection();
         outputArea.appendText("Conexión cerrada.\n");
-    }
+    }*/
 }

@@ -19,7 +19,9 @@
                 <Image url="@../../../images/logo.png" />
             </image>
         </ImageView>
-        <Button layoutX="230.0" layoutY="224.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="140.0" text="Cliente" />
+
+        <Button fx:id="cliente" onMouseClicked="#clienteOpciones" layoutX="230.0" layoutY="224.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="140.0" text="Cliente" />
+
         <Button fx:id="administrador" onMouseClicked="#administradorOpciones" layoutX="230.0" layoutY="295.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="140.0" text="Administrador" />
     </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package com.example.conexiondebases.ClasesAuxiliares;
 
+
 public class Cliente {
     private String idCliente; // ID del cliente
     private String nombres; // Nombres del cliente
