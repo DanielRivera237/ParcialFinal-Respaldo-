@@ -10,7 +10,9 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+
         Conexion conexion = Conexion.getInstancia("root", "**CssisnotasC#Punk**", "bancocentralnlogonia", "localhost", "3306");
+
         if (!conexion.connect()) {
             System.err.println("Error en la conexión de la base de datos");
             return;
