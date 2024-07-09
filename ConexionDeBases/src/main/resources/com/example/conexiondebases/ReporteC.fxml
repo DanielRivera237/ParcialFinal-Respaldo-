@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="756.0" prefWidth="864.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conexiondebases.Controllers.ReporteCController">
+<Pane prefHeight="729.0" prefWidth="864.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conexiondebases.Controllers.ReporteCController">
    <children>
       <Text layoutX="271.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BANCO CENTRAL DE NLOGONIA">
          <font>
@@ -21,13 +21,13 @@
          </image>
       </ImageView>
       <Separator layoutX="1.0" layoutY="323.0" prefHeight="8.0" prefWidth="862.0" />
-      <TableView fx:id="outPut" layoutX="40.0" layoutY="341.0" prefHeight="344.0" prefWidth="785.0">
+      <TableView fx:id="outPut" layoutX="40.0" layoutY="323.0" prefHeight="344.0" prefWidth="785.0">
          <columns>
             <TableColumn fx:id="ColumnID" prefWidth="125.0" text="ID" />
             <TableColumn fx:id="ColumCredito" prefWidth="295.0" text="Credito" />
-            <TableColumn fx:id="ColumnDebito" prefWidth="355.0" text="Debito" />
+            <TableColumn fx:id="ColumnDebito" prefWidth="364.0" text="Debito" />
          </columns>
       </TableView>
-      <Button fx:id="regresarButton" layoutX="393.0" layoutY="701.0" onMouseClicked="#regresarButton" text="Regresar" />
+      <Button fx:id="regresarButton" layoutX="401.0" layoutY="677.0" onMouseClicked="#regresarButton" text="Regresar" />
    </children>
 </Pane>

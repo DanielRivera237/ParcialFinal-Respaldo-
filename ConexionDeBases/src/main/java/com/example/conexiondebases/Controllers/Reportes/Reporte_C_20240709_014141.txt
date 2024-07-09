@@ -1,4 +1,0 @@
-ID Cliente: C0038
-Tarjeta de crédito: N/A
-Tarjeta de débito: XXXX XXXX XXXX 2345
-
