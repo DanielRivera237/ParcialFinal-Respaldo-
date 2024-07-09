@@ -16,11 +16,9 @@ public class HelloApplication extends Application {
             return;
         }
 
-<<<<<<< HEAD
+
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main-menu.fxml"));
-=======
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/conexiondebases/main-menu.fxml"));
->>>>>>> Daniel_ReporteD
+
         Scene scene = new Scene(fxmlLoader.load());
 
         MainMenuController controller = fxmlLoader.getController();

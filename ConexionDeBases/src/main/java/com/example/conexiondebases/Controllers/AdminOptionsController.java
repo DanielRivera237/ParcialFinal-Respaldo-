@@ -31,51 +31,41 @@ public class AdminOptionsController {
 
     public void setConexion(Conexion conexion) { //00104923 método setConexion
         this.conexion = conexion; //00104923 asignación de la variable conexion
-<<<<<<< HEAD
+
     }
 
     public void setPrimaryStage(Stage primaryStage) { //00104923 método setPrimaryStage
         this.primaryStage = primaryStage; //00104923 asignación de la variable primaryStage
     }
-=======
-    } //00104923 fin método setConexion
 
-    public void setPrimaryStage(Stage primaryStage) { //00104923 método setPrimaryStage
-        this.primaryStage = primaryStage; //00104923 asignación de la variable primaryStage
-    } //00104923 fin método setPrimaryStage
->>>>>>> Daniel_ReporteD
+
 
     @FXML
     public void showReporteA() throws IOException { //00104923 inicialización metodo mostrar ventana reporte A
         mostrarVentana("/com/example/conexiondebases/ReporteA.fxml", "Reporte A", 1); //00104923 inserto los parametros que necesita el método showWindow()
-<<<<<<< HEAD
+
     }
-=======
-    } //00104923 fin método showReporteA
->>>>>>> Daniel_ReporteD
+
 
     @FXML
     private void showReporteB() throws IOException { //00104923 inicialización metodo mostrar ventana reporte B
         mostrarVentana("/com/example/conexiondebases/ReporteB.fxml", "Reporte B", 2); //00104923 inserto los parametros que necesita el método showWindow()
-<<<<<<< HEAD
+
     }
-=======
-    } //00104923 fin método showReporteB
->>>>>>> Daniel_ReporteD
+
+
 
     @FXML
     private void showReporteC() throws IOException { //00104923 inicialización metodo mostrar ventana reporte C
         mostrarVentana( "/com/example/conexiondebases/ReporteC.fxml","Reporte C", 3); //00104923 inserto los parametros que necesita el método showWindow()
-<<<<<<< HEAD
+
     }
-=======
-    } //00104923 fin método showReporteC
->>>>>>> Daniel_ReporteD
+
+
 
     @FXML
     private void showReporteD() throws IOException { //00104923 inicialización metodo mostrar ventana reporte D
         mostrarVentana("/com/example/conexiondebases/ReporteD.fxml", "Reporte D", 4); //00104923 inserto los parametros que necesita el método showWindow()
-<<<<<<< HEAD
     }
 
     private void mostrarVentana(String fxmlFile, String title, int type) throws IOException { //00104923 inicialización metodo showWindow()
@@ -110,38 +100,7 @@ public class AdminOptionsController {
         stage.setScene(new Scene(root)); //00104923 establecer nueva escena en el stage
         stage.centerOnScreen();
         stage.show(); //00104923 mostrar stage
-=======
+
     } //00104923 fin método showReporteD
 
-    private void mostrarVentana(String fxmlFile, String title, int type) throws IOException { //00104923 inicialización método showWindow()
-        Stage stage = null; //00104923 variable tipo Stage
-        Parent root = null; //00104923 variable tipo Parent
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-        root = loader.load();
-        stage = (Stage) ((type == 1) ? reporteAButton.getScene().getWindow() :
-                (type == 2) ? reporteBButton.getScene().getWindow() :
-                        (type == 3) ? reporteCButton.getScene().getWindow() :
-                                reporteDButton.getScene().getWindow());
-        if (type == 4) {
-            ReporteDController controller = loader.getController();
-            if (controller != null) {
-                controller.setConexion(conexion);
-            }
-        }
-        stage.setScene(new Scene(root));
-        stage.centerOnScreen();
-        stage.show();
-
-        // Cerrar la ventana del menú principal
-        if (primaryStage != null) { //00104923 condición para cerrar primaryStage
-            primaryStage.close(); //00104923 cerrar primaryStage
-        } //00104923 fin if
-    } //00104923 fin método showWindow
-
-    private void cargarStageFinal(Parent root, Stage stage, String fxmlFile) throws IOException { //00048722 inicialización método cargarStageFinal()
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile)); //00048722 cargar FXML y asignar a loader
-        root = loader.load(); //00048722 cargar el root con el contenido del FXML
-        stage.setScene(new Scene(root)); //00048722 establecer una nueva escena en el stage con el root cargado
->>>>>>> Daniel_ReporteD
-    }
 }
