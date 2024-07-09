@@ -18,6 +18,8 @@
       <TextField fx:id="facilitadorField" layoutX="384.0" layoutY="195.0" />
       <Button fx:id="generarReporteButton" layoutX="375.0" layoutY="260.0" text="Generar Reporte" />
 
+      <Label layoutX="304.0" layoutY="230.0" text="Facilitadores aceptados: Mastercard, Visa, American Express" /> <!-- Añadido -->
+
       <Separator layoutX="9.0" layoutY="315.0" prefHeight="8.0" prefWidth="862.0" />
       <Text layoutX="279.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BANCO CENTRAL DE NLOGONIA">
          <font>
@@ -35,9 +37,11 @@
             <TableColumn fx:id="clienteColumn" prefWidth="267.0" text="Cliente" />
             <TableColumn fx:id="comprasColumn" prefWidth="183.0" text="Cantidad de Compras" />
             <TableColumn fx:id="totalColumn" minWidth="0.0" prefWidth="193.0" text="Total Gastado" />
-
          </columns>
       </TableView>
+
+      <Label fx:id="totalLabel" layoutX="118.0" layoutY="630.0" text="Total Gastado: 0.0" />
+
       <Button fx:id="regresarButton" layoutX="393.0" layoutY="656.0" onMouseClicked="#regresarButton" text="Regresar" />
    </children>
 </Pane>
