@@ -146,7 +146,7 @@ public class ReporteDController { // 00048722: Declara la clase pública Reporte
     private void guardarReporteEnArchivo(ObservableList<ReporteD> reporteDList, String facilitador, BigDecimal sumaTotal) { // 00048722: Método privado para guardar el reporte en un archivo
         try { // 00048722: Inicia un bloque try-catch para manejar excepciones
             // 00048722: Crear el directorio "Reportes" si no existe en la ruta del proyecto
-            String reportesDir = "src/main/java/com/example/conexiondebases/Reportes"; // 00048722: Define la ruta del directorio de reportes
+            String reportesDir = "ConexionDeBases/Reportes"; // 00048722: Define la ruta del directorio de reportes
             Path path = Paths.get(reportesDir); // 00048722: Crea un objeto Path para la ruta del directorio
             if (!Files.exists(path)) { // 00048722: Verifica si el directorio no existe
                 Files.createDirectories(path); // 00048722: Crea el directorio si no existe
