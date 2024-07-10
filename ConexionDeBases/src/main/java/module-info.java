@@ -10,4 +10,7 @@ module com.example.conexiondebases {
 
     exports com.example.conexiondebases.Controllers;
     opens com.example.conexiondebases.Controllers to javafx.fxml;
+
+    exports com.example.conexiondebases.Clases_auxiliares.Reportes;
+    opens com.example.conexiondebases.Clases_auxiliares.Reportes to javafx.fxml;
 }

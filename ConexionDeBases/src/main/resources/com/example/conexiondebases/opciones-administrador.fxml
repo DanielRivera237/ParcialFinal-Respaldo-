@@ -18,16 +18,17 @@
                 <Button fx:id="reporteDButton" onMouseClicked="#showReporteD" prefHeight="31.0" prefWidth="254.0" text="Clientes por facilitador tarjeta" />
             </children>
         </VBox>
-        <Text layoutX="86.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BANCO CENTRAL DE NLOGONIA">
-            <font>
-                <Font name="System Bold" size="21.0" />
-            </font>
-        </Text>
-        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="147.0" layoutY="-35.0">
-            <image>
-                <Image url="@../../../images/logo.png" />
-            </image>
-        </ImageView>
+      <Text layoutX="85.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BANCO CENTRAL DE NLOGONIA">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="248.0" fitWidth="261.0" layoutX="117.0" layoutY="-46.0">
+         <image>
+            <Image url="@../../../images/logoBanco.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="volverButton" onMouseClicked="#volver" layoutX="215.0" layoutY="391.0" mnemonicParsing="false" text="Volver" />
 
     </children>
 </Pane>

@@ -1,7 +1,4 @@
-package com.example.conexiondebases.Controllers;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+package com.example.conexiondebases.Clases_auxiliares.Reportes;
 
 public class ColumnasA {
     private final String idCliente;

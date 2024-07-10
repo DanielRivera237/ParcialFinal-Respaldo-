@@ -1,4 +1,4 @@
-package com.example.conexiondebases.Controllers;
+package com.example.conexiondebases.Clases_auxiliares.Reportes;
 
 public class ColumnaC { //00083223 declaracion de la clase ColumnaC
     private final String idCliente; //00083223  almacena el id del cliente

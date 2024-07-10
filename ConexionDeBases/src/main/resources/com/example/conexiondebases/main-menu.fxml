@@ -14,14 +14,14 @@
                 <Font name="System Bold" size="21.0" />
             </font>
         </Text>
-        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="200.0">
-            <image>
-                <Image url="@../../../images/logo.png" />
-            </image>
-        </ImageView>
 
-        <Button fx:id="cliente" onMouseClicked="#clienteOpciones" layoutX="230.0" layoutY="224.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="140.0" text="Cliente" />
+        <Button fx:id="cliente" layoutX="230.0" layoutY="224.0" mnemonicParsing="false" onMouseClicked="#clienteOpciones" prefHeight="45.0" prefWidth="140.0" text="Cliente" />
 
-        <Button fx:id="administrador" onMouseClicked="#administradorOpciones" layoutX="230.0" layoutY="295.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="140.0" text="Administrador" />
+        <Button fx:id="administrador" layoutX="230.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#administradorOpciones" prefHeight="45.0" prefWidth="140.0" text="Administrador" />
+      <ImageView fitHeight="248.0" fitWidth="261.0" layoutX="170.0" layoutY="-48.0">
+         <image>
+            <Image url="@../../../images/logoBanco.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

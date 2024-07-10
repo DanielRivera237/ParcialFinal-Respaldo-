@@ -1,5 +1,7 @@
 package com.example.conexiondebases.Controllers;
 
+import com.example.conexiondebases.Conexion;
+import com.example.conexiondebases.Clases_auxiliares.Reportes.ColumnaC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,15 +16,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ReporteCController {// 00083223 declaracion de la clase ReporteCController
-
+    private Conexion conexion = Conexion.getInstancia("root", "tu_contraseña", "gestionbcn", "localhost", "3306");
     @FXML
     private TextField idClienteField; //00083223 captura texto para ingresar el id del cliente
     @FXML
@@ -47,89 +47,89 @@ public class ReporteCController {// 00083223 declaracion de la clase ReporteCCon
         ColumnDebito.setCellValueFactory(new PropertyValueFactory<>("tarjetaDebito")); //00083223 configura la columna de débito
     }// 00083223fin del metodo initialize()
 
-    private void generarReporte() {// 00083223 inicializa el metodo generarReporte()
-        String idCliente = idClienteField.getText(); //00083223 obtiene el id del cliente ingresado
+    private void generarReporte() {
+        if(conexion.connect()){
+            String idCliente = idClienteField.getText();
 
-        if (idCliente == null || idCliente.trim().isEmpty()) { //00083223 verifica si el campo de ID está vacío
-            Alert alert = new Alert(Alert.AlertType.ERROR); //00083223 muestra una alerta de error
-            alert.setTitle("ERROR AL INGRESAR DATOS"); //00083223 establece el título de la alerta
-            alert.setHeaderText(null); //00083223 establece el encabezado de la alerta como nulo
-            alert.setContentText("Por favor, complete todos los campos"); //00083223 establece el contenido de la alerta
+            if (idCliente == null || idCliente.trim().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR AL INGRESAR DATOS");
+                alert.setHeaderText(null);
+                alert.setContentText("Por favor, complete todos los campos");
+                alert.showAndWait();
+                return;
+            }
 
-            alert.showAndWait(); //00083223 esto muestra la alerta y espera a que el usuario la cierre
-            return; //00083223 salida del método si el campo está vacío
-        }// 00083223 fin de la verificacion
+            ObservableList<ColumnaC> reporteC = FXCollections.observableArrayList();
+            try {
+                String query = "SELECT c.id_cliente AS IDCliente, " +
+                        "MAX(CASE WHEN t.tipo = 'Débito' THEN CONCAT('XXXX XXXX XXXX ', RIGHT(t.numero, 4)) ELSE 'N/A' END) AS TarjetaDebito, " +
+                        "MAX(CASE WHEN t.tipo = 'Crédito' THEN CONCAT('XXXX XXXX XXXX ', RIGHT(t.numero, 4)) ELSE 'N/A' END) AS TarjetaCredito " +
+                        "FROM Cliente c " +
+                        "LEFT JOIN Tarjeta t ON c.id_cliente = t.id_cliente " +
+                        "WHERE c.id_cliente = ? " +
+                        "GROUP BY c.id_cliente";
 
-        ObservableList<ColumnaC> reporteC = FXCollections.observableArrayList(); //00083223 crea una lista observable para almacenar los datos del reporte
-        try {// 00083223 incio del bloque try
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LABO", "labo13", "walle"); //00083223 establece la conexión con la base de datos
-            String query = "SELECT c.id_cliente AS IDCliente, " + //00083223 selecciona la columna a mostrar con su respectivo alias
-                    "MAX(CASE WHEN t.tipo = 'Débito' THEN CONCAT('XXXX XXXX XXXX ', RIGHT(t.numero, 4)) ELSE 'N/A' END) AS TarjetaDebito, " +//00083223 usa una expresion "case" para las tarjetas de débito: si el tipo es 'Débito', concatena 'XXXX XXXX XXXX ' con los últimos 4 dígitos del número de la tarjeta. Si no, usa 'N/A'.
-                    "MAX(CASE WHEN t.tipo = 'Crédito' THEN CONCAT('XXXX XXXX XXXX ', RIGHT(t.numero, 4)) ELSE 'N/A' END) AS TarjetaCredito " +//00083223 usa una expresion "case" para las tarjetas de crédito: si el tipo es 'Crédito', concatena 'XXXX XXXX XXXX ' con los últimos 4 dígitos del número de la tarjeta. Si no, usa 'N/A'.
-                    "FROM Cliente c " +//00083223 selecciona la tabla Cliente con su respectivo alias
-                    "LEFT JOIN Tarjeta t ON c.id_cliente = t.id_cliente " +//00083223 hace una unión  de la tabla Cliente con la tabla Tarjeta usando una LEFT JOIN para incluir todos los clientes.
-                    "WHERE c.id_cliente = ? " +//00083223 filtra los resultados para que solo se incluyan los datos del cliente cuyo id_cliente coincide con el valor proporcionado.
-                    "GROUP BY c.id_cliente";//00083223 agrupa los resultados por id_cliente para asegurarse de que cada cliente aparezca una sola vez en los resultados.
+                PreparedStatement pstmt = conexion.getConnection().prepareStatement(query);
+                pstmt.setString(1, idCliente);
 
-            PreparedStatement pstmt = conn.prepareStatement(query); //00083223 prepara la consulta SQL
-            pstmt.setString(1, idCliente); //00083223 esto establece el id del cliente en la consulta
+                ResultSet rs = pstmt.executeQuery();
 
-            ResultSet rs = pstmt.executeQuery(); //00083223 ejecuta la consulta y obtiene los resultados
+                if (!rs.isBeforeFirst()) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("ID NO ENCONTRADO");
+                    alert.setHeaderText(null);
+                    alert.setContentText("No se encontró un cliente con el ID proporcionado.");
+                    alert.showAndWait();
+                    return;
+                }
 
-            if (!rs.isBeforeFirst()) { //00083223 verifica si no hay resultados
-                Alert alert = new Alert(Alert.AlertType.ERROR); //00083223 muestra una alerta de error
-                alert.setTitle("ID NO ENCONTRADO"); //00083223 esto establece el título de la alerta
-                alert.setHeaderText(null); //00083223 aqui establece el encabezado de la alerta como nulo
-                alert.setContentText("No se encontró un cliente con el ID proporcionado."); //00083223 establece el contenido de la alerta
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+                String timestamp = now.format(formatter);
 
-                alert.showAndWait(); //00083223 esto muestra la alerta y espera a que el usuario la cierre
-                return; //00083223 salida del método si no hay resultados
-            }// 00083223 fin de la verficacion
+                // Cambiar la ruta del archivo
+                File archivo = new File("ConexionDeBases/Reportes/Reporte_C_" + timestamp + ".txt");
+                BufferedWriter writer = new BufferedWriter(new FileWriter(archivo));
 
-            LocalDateTime now = LocalDateTime.now(); //00083223 obtiene la fecha y hora actual
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"); //00083223 define el formato de la fecha y hora
-            String timestamp = now.format(formatter); //00083223 formatea la fecha y hora actual
+                while (rs.next()) {
+                    String id = rs.getString("IDCliente");
+                    String numeroCredito = rs.getString("TarjetaCredito");
+                    String numeroDebito = rs.getString("TarjetaDebito");
 
-            File archivo = new File("C:\\Users\\Camilo\\Desktop\\ParcialFinal-Respaldo-\\ConexionDeBases\\src\\main\\java\\com\\example\\conexiondebases\\Controllers\\Reportes\\Reporte_C_" + timestamp + ".txt"); //00083223 crea un archivo TXT para guardar los resultados
-            BufferedWriter writer = new BufferedWriter(new FileWriter(archivo)); //00083223 aqui prepara el archivo para escribir en él
+                    String linea = "ID Cliente: " + id + ", Tarjeta de crédito: " + (numeroCredito != null ? numeroCredito : "N/A") + ", Tarjeta de débito: " + (numeroDebito != null ? numeroDebito : "N/A");
 
-            while (rs.next()) { //00083223 itera sobre los resultados de la consulta
-                String id = rs.getString("IDCliente"); //00083223 obtiene el ID del cliente
-                String numeroCredito = rs.getString("TarjetaCredito"); //00083223 obtiene el número de la tarjeta de crédito
-                String numeroDebito = rs.getString("TarjetaDebito"); //00083223 obtiene el número de la tarjeta de débito
+                    writer.write(linea);
+                    writer.newLine();
 
-                String linea = "ID Cliente: " + id + ", Tarjeta de crédito: " + (numeroCredito != null ? numeroCredito : "N/A") + ", Tarjeta de débito: " + (numeroDebito != null ? numeroDebito : "N/A"); //00083223 crea una línea con todos los datos concatenados
+                    reporteC.add(new ColumnaC(id, numeroCredito, numeroDebito));
+                }
 
-                writer.write(linea); //00083223 escribe la linea en el archivo
-                writer.newLine(); //00083223 añade una nueva linea en blanco entre registros
+                writer.close();
+                rs.close();
+                pstmt.close();
+                conexion.getConnection().close();
 
-                reporteC.add(new ColumnaC(id, numeroCredito, numeroDebito)); //00083223 Añade los datos a la lista observable
-            }//0083223 fin de la iteracion
+                outPut.setItems(reporteC);
 
-            writer.close(); //00083223 cierra el escritor de archivos
-            rs.close(); //00083223 cierra el conjunto de resultados
-            pstmt.close(); //00083223 cierra el statement preparado
-            conn.close(); //00083223 cierra la conexión con la base de datos
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Reporte Generado");
+                alert.setHeaderText(null);
+                alert.setContentText("El archivo TXT ha sido creado con éxito.");
+                alert.showAndWait();
 
-            outPut.setItems(reporteC); //00083223 establece los datos en la tabla
+            } catch (Exception e) {
+                System.out.println("Fallo al conectar la Base de Datos: " + e.getMessage());
+            }
+        }
+    }
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION); //00083223 muestra una alerta de éxito
-            alert.setTitle("Reporte Generado"); //00083223 establece el título de la alerta
-            alert.setHeaderText(null); //00083223 establece el encabezado de la alerta como nulo
-            alert.setContentText("El archivo TXT ha sido creado con éxito."); //00083223 establece el contenido de la alerta
-
-            alert.showAndWait(); //00083223 aqui muestra la alerta y espera a que el usuario la cierre
-
-        } catch (Exception e) {//00083223 captura de excepción IOException
-            System.out.println("Fallo al conectar la Base de Datos: " + e.getMessage()); //00083223 imprime un mensaje de error si ocurre una excepción
-        }//00083223 fin del bloque catch
-    }//00083223 fin del metodo generarReporte()
 
     @FXML
     public void regresarButton() {//00083223 incio del metodo regresarButton()
         try {
             Stage stage = (Stage) regresarButton.getScene().getWindow(); //00083223 obtiene la ventana actual
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/conexiondebases/main-menu.fxml")); //00083223 Carga la vista del menú principal
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/conexiondebases/opciones-administrador.fxml")); //00083223 Carga la vista del menú principal
             stage.setScene(new Scene(root)); //00083223 aqui establece la escena del menú principal en la ventana
             stage.centerOnScreen(); //00083223 esto centra la ventana en la pantalla
             stage.show(); //00083223 muestra la ventana

@@ -1,4 +1,4 @@
-package com.example.conexiondebases.ClasesAuxiliares.Alertas;
+package com.example.conexiondebases.Clases_auxiliares.Alertas;
 
 import javafx.scene.control.Alert;
 

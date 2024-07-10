@@ -1,9 +1,8 @@
-package com.example.conexiondebases.ClasesAuxiliares.Chain;
+package com.example.conexiondebases.Clases_auxiliares.Chain;
 
-import com.example.conexiondebases.ClasesAuxiliares.InfoInsertar;
+import com.example.conexiondebases.Clases_auxiliares.InfoInsertar;
 import com.example.conexiondebases.Conexion;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

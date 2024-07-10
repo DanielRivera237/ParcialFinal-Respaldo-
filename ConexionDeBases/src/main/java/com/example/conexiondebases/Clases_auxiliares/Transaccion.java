@@ -1,4 +1,4 @@
-package com.example.conexiondebases.ClasesAuxiliares;
+package com.example.conexiondebases.Clases_auxiliares;
 
 import java.math.BigDecimal;
 import java.util.Date;

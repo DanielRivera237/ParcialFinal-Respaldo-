@@ -1,4 +1,4 @@
-package com.example.conexiondebases.Controllers;
+package com.example.conexiondebases.Clases_auxiliares.Reportes;
 
 public class ColumnasB {
     private final String idCliente;

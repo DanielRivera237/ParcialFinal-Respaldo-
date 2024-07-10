@@ -1,4 +1,4 @@
-package com.example.conexiondebases.Controllers;
+package com.example.conexiondebases.Clases_auxiliares.Reportes;
 
 import java.math.BigDecimal;
 public class ReporteD { // 00048722: Declara la clase pública ReporteD

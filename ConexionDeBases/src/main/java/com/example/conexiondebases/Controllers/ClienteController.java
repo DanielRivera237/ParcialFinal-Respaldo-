@@ -1,10 +1,10 @@
 package com.example.conexiondebases.Controllers;
 
-import com.example.conexiondebases.ClasesAuxiliares.Alertas.Alertas;
-import com.example.conexiondebases.ClasesAuxiliares.Chain.Handler;
-import com.example.conexiondebases.ClasesAuxiliares.Chain.HandlerNombreCliente;
-import com.example.conexiondebases.ClasesAuxiliares.Chain.HandlerTarjetaDatos;
-import com.example.conexiondebases.ClasesAuxiliares.InfoInsertar;
+import com.example.conexiondebases.Clases_auxiliares.Alertas.Alertas;
+import com.example.conexiondebases.Clases_auxiliares.Chain.Handler;
+import com.example.conexiondebases.Clases_auxiliares.Chain.HandlerNombreCliente;
+import com.example.conexiondebases.Clases_auxiliares.Chain.HandlerTarjetaDatos;
+import com.example.conexiondebases.Clases_auxiliares.InfoInsertar;
 import com.example.conexiondebases.Conexion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +18,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.util.ResourceBundle;
 
 public class ClienteController implements Initializable, Alertas { //00104923 Define la clase ClienteController que implementa Initializable y Alertas
