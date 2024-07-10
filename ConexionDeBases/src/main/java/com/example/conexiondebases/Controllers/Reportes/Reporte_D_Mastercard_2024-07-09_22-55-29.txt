@@ -1,0 +1,8 @@
+Reporte para facilitador: Mastercard
+
+Cliente                        Cantidad de Compras  Total Gastado       
+------------------------------------------------------------
+Paula Sofía Córdova Rivera     5                    357.50              
+Carlos Alberto López Martínez  1                    100.75              
+
+Suma Total: 458.25

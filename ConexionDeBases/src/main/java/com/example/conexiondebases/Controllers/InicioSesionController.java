@@ -1,6 +1,6 @@
 package com.example.conexiondebases.Controllers;
 
-import com.example.conexiondebases.Clases_auxiliares.Alertas.Alertas;
+import com.example.conexiondebases.ClasesAuxiliares.Alertas.Alertas;
 import com.example.conexiondebases.Conexion;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -19,7 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class InicioSesionController implements Alertas { //00104923 Implementa la interfaz Alertas
-    private Conexion conexion = Conexion.getInstancia("root", "tu_contraseña", "gestionbcn", "localhost", "3306"); //00104923 Obtención de instancia de conexión a la base de datos
+    private Conexion conexion = Conexion.getInstancia("dsandmin", "greninja1207", "bancocentralnlogonia", "localhost", "3306"); //00104923 Obtención de instancia de conexión a la base de datos
     @FXML
     private Button aceptar; //00104923 Botón aceptar para iniciar sesión
     @FXML

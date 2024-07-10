@@ -1,0 +1,6 @@
+Reporte para facilitador: lkjh
+
+Cliente                        Cantidad de Compras  Total Gastado       
+------------------------------------------------------------
+
+Suma Total: 0

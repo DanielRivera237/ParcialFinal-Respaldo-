@@ -1,6 +1,5 @@
 package com.example.conexiondebases.Controllers;
 import com.example.conexiondebases.Conexion;
-import com.example.conexiondebases.Clases_auxiliares.Reportes.ReporteD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -44,7 +43,7 @@ public class ReporteDController { // 00048722: Declara la clase pública Reporte
     @FXML // 00048722: Anotación FXML para inyección del campo totalLabel
     private Label totalLabel; // 00048722: Declara un campo privado de tipo Label llamado totalLabel
 
-    private Conexion conexion = Conexion.getInstancia("root", "tu_contraseña", "gestionbcn", "localhost", "3306"); // 00048722: Inicializa el campo conexion con una instancia de Conexion
+    private Conexion conexion = Conexion.getInstancia("dsandmin", "greninja1207", "bancocentralnlogonia", "localhost", "3306"); // 00048722: Inicializa el campo conexion con una instancia de Conexion
 
     @FXML // 00048722: Anotación FXML para el método initialize
     public void initialize() { // 00048722: Método initialize que se ejecuta al cargar el FXML
@@ -64,92 +63,90 @@ public class ReporteDController { // 00048722: Declara la clase pública Reporte
 
     @FXML // 00048722: Anotación FXML para el método generarReporte
     private void generarReporte() { // 00048722: Método privado generarReporte
-       if(conexion.connect()){
-           String facilitador = facilitadorField.getText(); // 00048722: Obtiene el texto del campo facilitadorField y lo asigna a la variable facilitador
-           String queryTodos = "SELECT " + // 00048722: Consulta SQL para obtener todos los clientes con el facilitador
-                   "CONCAT(Cliente.nombres, ' ', Cliente.apellidos) AS cliente, " + // 00048722: Concatena nombres y apellidos del cliente
-                   "COUNT(Transaccion.id_transaccion) AS cantidad_compras, " + // 00048722: Cuenta la cantidad de transacciones
-                   "COALESCE(SUM(Transaccion.total_gastado), 0) AS total_gastado " + // 00048722: Suma el total gastado, o 0 si es nulo
-                   "FROM Cliente " + // 00048722: Desde la tabla Cliente
-                   "INNER JOIN Tarjeta ON Cliente.id_cliente = Tarjeta.id_cliente " + // 00048722: Uniendo con la tabla Tarjeta
-                   "LEFT JOIN Transaccion ON Tarjeta.numero = Transaccion.numero_tarjeta " + // 00048722: Uniendo con la tabla Transaccion
-                   "WHERE Tarjeta.facilitador = ? " + // 00048722: Donde el facilitador coincide con el parámetro
-                   "GROUP BY Cliente.nombres, Cliente.apellidos"; // 00048722: Agrupa por nombres y apellidos del cliente
+        String facilitador = facilitadorField.getText(); // 00048722: Obtiene el texto del campo facilitadorField y lo asigna a la variable facilitador
+        String queryTodos = "SELECT " + // 00048722: Consulta SQL para obtener todos los clientes con el facilitador
+                "CONCAT(Cliente.nombres, ' ', Cliente.apellidos) AS cliente, " + // 00048722: Concatena nombres y apellidos del cliente
+                "COUNT(Transaccion.id_transaccion) AS cantidad_compras, " + // 00048722: Cuenta la cantidad de transacciones
+                "COALESCE(SUM(Transaccion.total_gastado), 0) AS total_gastado " + // 00048722: Suma el total gastado, o 0 si es nulo
+                "FROM Cliente " + // 00048722: Desde la tabla Cliente
+                "INNER JOIN Tarjeta ON Cliente.id_cliente = Tarjeta.id_cliente " + // 00048722: Uniendo con la tabla Tarjeta
+                "LEFT JOIN Transaccion ON Tarjeta.numero = Transaccion.numero_tarjeta " + // 00048722: Uniendo con la tabla Transaccion
+                "WHERE Tarjeta.facilitador = ? " + // 00048722: Donde el facilitador coincide con el parámetro
+                "GROUP BY Cliente.nombres, Cliente.apellidos"; // 00048722: Agrupa por nombres y apellidos del cliente
 
-           String queryConGasto = "SELECT " + // 00048722: Consulta SQL para obtener solo los clientes con gastos
-                   "CONCAT(Cliente.nombres, ' ', Cliente.apellidos) AS cliente, " + // 00048722: Concatena nombres y apellidos del cliente
-                   "COUNT(Transaccion.id_transaccion) AS cantidad_compras, " + // 00048722: Cuenta la cantidad de transacciones
-                   "SUM(Transaccion.total_gastado) AS total_gastado " + // 00048722: Suma el total gastado
-                   "FROM Cliente " + // 00048722: Desde la tabla Cliente
-                   "INNER JOIN Tarjeta ON Cliente.id_cliente = Tarjeta.id_cliente " + // 00048722: Uniendo con la tabla Tarjeta
-                   "INNER JOIN Transaccion ON Tarjeta.numero = Transaccion.numero_tarjeta " + // 00048722: Uniendo con la tabla Transaccion
-                   "WHERE Tarjeta.facilitador = ? " + // 00048722: Donde el facilitador coincide con el parámetro
-                   "GROUP BY Cliente.nombres, Cliente.apellidos " + // 00048722: Agrupa por nombres y apellidos del cliente
-                   "HAVING SUM(Transaccion.total_gastado) > 0"; // 00048722: Solo incluye grupos con gastos mayores a 0
+        String queryConGasto = "SELECT " + // 00048722: Consulta SQL para obtener solo los clientes con gastos
+                "CONCAT(Cliente.nombres, ' ', Cliente.apellidos) AS cliente, " + // 00048722: Concatena nombres y apellidos del cliente
+                "COUNT(Transaccion.id_transaccion) AS cantidad_compras, " + // 00048722: Cuenta la cantidad de transacciones
+                "SUM(Transaccion.total_gastado) AS total_gastado " + // 00048722: Suma el total gastado
+                "FROM Cliente " + // 00048722: Desde la tabla Cliente
+                "INNER JOIN Tarjeta ON Cliente.id_cliente = Tarjeta.id_cliente " + // 00048722: Uniendo con la tabla Tarjeta
+                "INNER JOIN Transaccion ON Tarjeta.numero = Transaccion.numero_tarjeta " + // 00048722: Uniendo con la tabla Transaccion
+                "WHERE Tarjeta.facilitador = ? " + // 00048722: Donde el facilitador coincide con el parámetro
+                "GROUP BY Cliente.nombres, Cliente.apellidos " + // 00048722: Agrupa por nombres y apellidos del cliente
+                "HAVING SUM(Transaccion.total_gastado) > 0"; // 00048722: Solo incluye grupos con gastos mayores a 0
 
-           if (facilitador == null || facilitador.isEmpty()) { // 00048722: Verifica si el facilitador es nulo o está vacío
-               mostrarAlerta("Error", "Datos faltantes", "Por favor ingrese un facilitador.", Alert.AlertType.ERROR); // 00048722: Muestra una alerta de error
-               return; // 00048722: Sale del método
-           }
+        if (facilitador == null || facilitador.isEmpty()) { // 00048722: Verifica si el facilitador es nulo o está vacío
+            mostrarAlerta("Error", "Datos faltantes", "Por favor ingrese un facilitador.", Alert.AlertType.ERROR); // 00048722: Muestra una alerta de error
+            return; // 00048722: Sale del método
+        }
 
-           ObservableList<ReporteD> reporteDList = FXCollections.observableArrayList(); // 00048722: Crea una lista observable para almacenar los reportes
-           ObservableList<ReporteD> reporteDListConGasto = FXCollections.observableArrayList(); // 00048722: Crea una lista observable para almacenar los reportes con gasto
-           BigDecimal sumaTotal = BigDecimal.ZERO; // 00048722: Inicializa sumaTotal a cero
+        ObservableList<ReporteD> reporteDList = FXCollections.observableArrayList(); // 00048722: Crea una lista observable para almacenar los reportes
+        ObservableList<ReporteD> reporteDListConGasto = FXCollections.observableArrayList(); // 00048722: Crea una lista observable para almacenar los reportes con gasto
+        BigDecimal sumaTotal = BigDecimal.ZERO; // 00048722: Inicializa sumaTotal a cero
 
-           try { // 00048722: Inicia un bloque try-catch para manejar excepciones
-               if (!conexion.connectionStablished()) { // 00048722: Verifica si la conexión no está establecida
-                   mostrarAlerta("Error", "Error de conexión", "No se pudo establecer conexión con la base de datos.", Alert.AlertType.ERROR); // 00048722: Muestra una alerta de error
-                   return; // 00048722: Sale del método
-               }
+        try { // 00048722: Inicia un bloque try-catch para manejar excepciones
+            if (!conexion.connectionStablished()) { // 00048722: Verifica si la conexión no está establecida
+                mostrarAlerta("Error", "Error de conexión", "No se pudo establecer conexión con la base de datos.", Alert.AlertType.ERROR); // 00048722: Muestra una alerta de error
+                return; // 00048722: Sale del método
+            }
 
-               // 00048722: Obtener todos los clientes con el facilitador
-               PreparedStatement pstmt = conexion.getConnection().prepareStatement(queryTodos); // 00048722: Prepara la consulta SQL queryTodos
-               pstmt.setString(1, facilitador); // 00048722: Establece el parámetro facilitador en la consulta
-               ResultSet rs = pstmt.executeQuery(); // 00048722: Ejecuta la consulta y obtiene el resultado
-               while (rs.next()) { // 00048722: Itera sobre los resultados
-                   ReporteD reporteD = new ReporteD( // 00048722: Crea una nueva instancia de ReporteD con los datos del resultado
-                           rs.getString("cliente"), // 00048722: Obtiene el valor de la columna cliente
-                           rs.getInt("cantidad_compras"), // 00048722: Obtiene el valor de la columna cantidad_compras
-                           rs.getBigDecimal("total_gastado") // 00048722: Obtiene el valor de la columna total_gastado
-                   );
-                   reporteDList.add(reporteD); // 00048722: Agrega el reporteD a la lista reporteDList
-               }
-               rs.close(); // 00048722: Cierra el ResultSet
-               pstmt.close(); // 00048722: Cierra el PreparedStatement
+            // 00048722: Obtener todos los clientes con el facilitador
+            PreparedStatement pstmt = conexion.getConnection().prepareStatement(queryTodos); // 00048722: Prepara la consulta SQL queryTodos
+            pstmt.setString(1, facilitador); // 00048722: Establece el parámetro facilitador en la consulta
+            ResultSet rs = pstmt.executeQuery(); // 00048722: Ejecuta la consulta y obtiene el resultado
+            while (rs.next()) { // 00048722: Itera sobre los resultados
+                ReporteD reporteD = new ReporteD( // 00048722: Crea una nueva instancia de ReporteD con los datos del resultado
+                        rs.getString("cliente"), // 00048722: Obtiene el valor de la columna cliente
+                        rs.getInt("cantidad_compras"), // 00048722: Obtiene el valor de la columna cantidad_compras
+                        rs.getBigDecimal("total_gastado") // 00048722: Obtiene el valor de la columna total_gastado
+                );
+                reporteDList.add(reporteD); // 00048722: Agrega el reporteD a la lista reporteDList
+            }
+            rs.close(); // 00048722: Cierra el ResultSet
+            pstmt.close(); // 00048722: Cierra el PreparedStatement
 
-               // 00048722: Obtener solo los clientes con gastos
-               pstmt = conexion.getConnection().prepareStatement(queryConGasto); // 00048722: Prepara la consulta SQL queryConGasto
-               pstmt.setString(1, facilitador); // 00048722: Establece el parámetro facilitador en la consulta
-               rs = pstmt.executeQuery(); // 00048722: Ejecuta la consulta y obtiene el resultado
-               while (rs.next()) { // 00048722: Itera sobre los resultados
-                   ReporteD reporteD = new ReporteD( // 00048722: Crea una nueva instancia de ReporteD con los datos del resultado
-                           rs.getString("cliente"), // 00048722: Obtiene el valor de la columna cliente
-                           rs.getInt("cantidad_compras"), // 00048722: Obtiene el valor de la columna cantidad_compras
-                           rs.getBigDecimal("total_gastado") // 00048722: Obtiene el valor de la columna total_gastado
-                   );
-                   sumaTotal = sumaTotal.add(rs.getBigDecimal("total_gastado")); // 00048722: Suma el total gastado al sumaTotal
-                   reporteDListConGasto.add(reporteD); // 00048722: Agrega el reporteD a la lista reporteDListConGasto
-               }
-               rs.close(); // 00048722: Cierra el ResultSet
-               pstmt.close(); // 00048722: Cierra el PreparedStatement
+            // 00048722: Obtener solo los clientes con gastos
+            pstmt = conexion.getConnection().prepareStatement(queryConGasto); // 00048722: Prepara la consulta SQL queryConGasto
+            pstmt.setString(1, facilitador); // 00048722: Establece el parámetro facilitador en la consulta
+            rs = pstmt.executeQuery(); // 00048722: Ejecuta la consulta y obtiene el resultado
+            while (rs.next()) { // 00048722: Itera sobre los resultados
+                ReporteD reporteD = new ReporteD( // 00048722: Crea una nueva instancia de ReporteD con los datos del resultado
+                        rs.getString("cliente"), // 00048722: Obtiene el valor de la columna cliente
+                        rs.getInt("cantidad_compras"), // 00048722: Obtiene el valor de la columna cantidad_compras
+                        rs.getBigDecimal("total_gastado") // 00048722: Obtiene el valor de la columna total_gastado
+                );
+                sumaTotal = sumaTotal.add(rs.getBigDecimal("total_gastado")); // 00048722: Suma el total gastado al sumaTotal
+                reporteDListConGasto.add(reporteD); // 00048722: Agrega el reporteD a la lista reporteDListConGasto
+            }
+            rs.close(); // 00048722: Cierra el ResultSet
+            pstmt.close(); // 00048722: Cierra el PreparedStatement
 
-               tableView.setItems(reporteDList); // 00048722: Establece los elementos de la tabla con la lista reporteDList
-               totalLabel.setText("Total Gastado: " + sumaTotal); // 00048722: Muestra la suma total en el Label totalLabel
+            tableView.setItems(reporteDList); // 00048722: Establece los elementos de la tabla con la lista reporteDList
+            totalLabel.setText("Total Gastado: " + sumaTotal); // 00048722: Muestra la suma total en el Label totalLabel
 
-               // 00048722: Guardar el reporte en un archivo de texto
-               guardarReporteEnArchivo(reporteDListConGasto, facilitador, sumaTotal); // 00048722: Llama al método guardarReporteEnArchivo con los parámetros correspondientes
+            // 00048722: Guardar el reporte en un archivo de texto
+            guardarReporteEnArchivo(reporteDListConGasto, facilitador, sumaTotal); // 00048722: Llama al método guardarReporteEnArchivo con los parámetros correspondientes
 
-           } catch (SQLException e) { // 00048722: Captura las excepciones SQL
-               mostrarAlerta("Error", "Error al obtener reporte", "Hubo un error al obtener el reporte desde la base de datos.\n" + e.getMessage(), Alert.AlertType.ERROR); // 00048722: Muestra una alerta de error con el mensaje de la excepción
-               e.printStackTrace(); // 00048722: Imprime la traza de la excepción
-           }
-       }
+        } catch (SQLException e) { // 00048722: Captura las excepciones SQL
+            mostrarAlerta("Error", "Error al obtener reporte", "Hubo un error al obtener el reporte desde la base de datos.\n" + e.getMessage(), Alert.AlertType.ERROR); // 00048722: Muestra una alerta de error con el mensaje de la excepción
+            e.printStackTrace(); // 00048722: Imprime la traza de la excepción
+        }
     } // 00048722: Cierra el método generarReporte
 
     private void guardarReporteEnArchivo(ObservableList<ReporteD> reporteDList, String facilitador, BigDecimal sumaTotal) { // 00048722: Método privado para guardar el reporte en un archivo
         try { // 00048722: Inicia un bloque try-catch para manejar excepciones
             // 00048722: Crear el directorio "Reportes" si no existe en la ruta del proyecto
-            String reportesDir = "ConexionDeBases/Reportes"; // 00048722: Define la ruta del directorio de reportes
+            String reportesDir = "C:\\Users\\dsand\\IdeaProjects\\demoParcialFinalPOO\\src\\main\\java\\com\\example\\conexiondebases\\Controllers\\Reportes"; // 00048722: Define la ruta del directorio de reportes
             Path path = Paths.get(reportesDir); // 00048722: Crea un objeto Path para la ruta del directorio
             if (!Files.exists(path)) { // 00048722: Verifica si el directorio no existe
                 Files.createDirectories(path); // 00048722: Crea el directorio si no existe
@@ -157,7 +154,7 @@ public class ReporteDController { // 00048722: Declara la clase pública Reporte
 
             // 00048722: Formatear la fecha y hora actual para el nombre del archivo
             String fechaHora = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date()); // 00048722: Formatea la fecha y hora actual
-            String nombreArchivo = reportesDir + "/Reporte_" + facilitador + "_" + fechaHora + ".txt"; // 00048722: Define el nombre del archivo
+            String nombreArchivo = reportesDir + "\\Reporte_D_" + facilitador + "_" + fechaHora + ".txt"; // 00048722: Define el nombre del archivo
 
             // 00048722: Crear el archivo y escribir el contenido del reporte
             FileWriter writer = new FileWriter(nombreArchivo); // 00048722: Crea un FileWriter para el archivo
@@ -187,7 +184,7 @@ public class ReporteDController { // 00048722: Declara la clase pública Reporte
     public void regresarButton() { // 00048722: Método público regresarButton
         try { // 00048722: Inicia un bloque try-catch para manejar excepciones
             Stage stage = (Stage) regresarButton.getScene().getWindow(); // 00048722: Obtiene la ventana actual del botón regresarButton
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/conexiondebases/opciones-administrador.fxml")); // 00048722: Carga el archivo FXML del menú principal
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/conexiondebases/main-menu.fxml")); // 00048722: Carga el archivo FXML del menú principal
             stage.setScene(new Scene(root)); // 00048722: Establece la nueva escena en la ventana actual
             stage.centerOnScreen(); // 00048722: Centra la ventana en la pantalla
             stage.show(); // 00048722: Muestra la ventana

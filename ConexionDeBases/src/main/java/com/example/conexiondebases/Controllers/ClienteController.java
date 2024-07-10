@@ -1,10 +1,11 @@
 package com.example.conexiondebases.Controllers;
 
-import com.example.conexiondebases.Clases_auxiliares.Alertas.Alertas;
-import com.example.conexiondebases.Clases_auxiliares.Chain.Handler;
-import com.example.conexiondebases.Clases_auxiliares.Chain.HandlerNombreCliente;
-import com.example.conexiondebases.Clases_auxiliares.Chain.HandlerTarjetaDatos;
-import com.example.conexiondebases.Clases_auxiliares.InfoInsertar;
+import com.example.conexiondebases.ClasesAuxiliares.Alertas.Alertas;
+import com.example.conexiondebases.ClasesAuxiliares.Chain.Handler;
+import com.example.conexiondebases.ClasesAuxiliares.Chain.HandlerNombreCliente;
+import com.example.conexiondebases.ClasesAuxiliares.Chain.HandlerTarjetaDatos;
+import com.example.conexiondebases.ClasesAuxiliares.InfoInsertar;
+
 import com.example.conexiondebases.Conexion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -135,7 +136,7 @@ public class ClienteController implements Initializable, Alertas { //00104923 De
             java.sql.Date sqlFechaActual = new java.sql.Date(fechaActual.getTime()); //00104923 Convierte la fecha actual a SQL Date
             try {
                 String insercionConsulta = "INSERT INTO Transaccion(fecha_compra, total_gastado, descripcion_compra, numero_tarjeta) VALUES(?,?,?,?)"; //00104923 Consulta SQL para insertar una transacción
-                PreparedStatement preparedStatement = Conexion.getInstancia("root", "**CssisnotasC#Punk**", "bancocentralnlogonia", "localhost", "3306").getConnection().prepareStatement(insercionConsulta); //00104923 Prepara la consulta SQL
+                PreparedStatement preparedStatement = Conexion.getInstancia("dsandmin", "greninja1207", "bancocentralnlogonia", "localhost", "3306").getConnection().prepareStatement(insercionConsulta); //00104923 Prepara la consulta SQL
                 preparedStatement.setDate(1, sqlFechaActual); //00104923 Establece el primer parámetro de la consulta
                 preparedStatement.setBigDecimal(2, informacion.getTotalPagar()); //00104923 Establece el segundo parámetro de la consulta
                 preparedStatement.setString(3, informacion.getDescripcion()); //00104923 Establece el tercer parámetro de la consulta
